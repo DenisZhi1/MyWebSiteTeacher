@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Репетитор английского — яркая визитка</title>
+  <meta name="description" content="Индивидуальные занятия по английскому онлайн. Современный подход, чёткие результаты и дружелюбная атмосфера." />
+  <meta name="color-scheme" content="light" />
+  <style>
+    :root{
+      --bg: #0d0f1a;                 /* тёмный индиго для контраста с неоном */
+      --surface: #111429;            /* тёмная поверхность карточек */
+      --text: #f8fbff;               /* почти белый текст */
+      --muted: #c9d2ffbb;            /* приглушённый текст */
+      --primary: #7C3AED;            /* фиолетовый неон */
+      --secondary: #06B6D4;          /* циан неон */
+      --accent: #22D3EE;             /* светлый бирюзовый неон */
+      --lime: #A3E635;               /* лаймовый акцент */
+      --pink: #EC4899;               /* розовый неон */
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --pad: clamp(16px, 3.5vw, 28px);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 10% -10%, #1b1f3a 0%, transparent 60%),
+        radial-gradient(1000px 600px at 120% 0%, #111a4b 0%, transparent 60%),
+        linear-gradient(180deg, #0a0c18 0%, #0d0f1a 100%);
+    }
+
+    /* Неоновая сетка */
+    .grid-bg::before{
+      content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+      background-image:
+        linear-gradient(transparent 96%, rgba(124,58,237,.25) 97%),
+        linear-gradient(90deg, transparent 96%, rgba(34,211,238,.25) 97%);
+      background-size: 40px 40px;
+      filter: drop-shadow(0 0 6px rgba(124,58,237,.4));
+      opacity:.25;
+    }
+
+    a{color:var(--accent); text-decoration:none}
+    a:hover{ text-decoration:underline; text-underline-offset: 3px; }
+
+    header{
+      position:sticky; top:0; z-index:50;
+      background: rgba(13,15,26,.7);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .wrap{ max-width:1100px; margin-inline:auto; padding-inline:var(--pad); }
+
+    .bar{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px var(--pad); }
+    .brand{ display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.2px; }
+    .logo{ width:36px; aspect-ratio:1; border-radius:10px; background:
+      conic-gradient(from 180deg, var(--secondary), var(--primary), var(--pink), var(--lime), var(--secondary));
+      filter:brightness(1.1) saturate(1.2) drop-shadow(0 0 12px rgba(34,211,238,.45));
+    }
+    nav ul{ list-style:none; display:flex; gap:16px; margin:0; padding:0; flex-wrap:wrap }
+    nav a{ display:inline-block; padding:8px 12px; border-radius:10px; font-weight:600; color:var(--text); opacity:.9 }
+    nav a:hover{ background: rgba(124,58,237,.18); opacity:1 }
+
+    /* Hero */
+    .hero{
+      position:relative;
+      overflow:hidden;
+      padding: clamp(36px, 7vw, 80px) 0;
+    }
+    .halo{
+      position:absolute; inset:-20% -10% auto -10%; height:70vh; z-index:-1;
+      background: radial-gradient(closest-side, rgba(124,58,237,.55), transparent 70%),
+                 radial-gradient(closest-side, rgba(6,182,212,.4), transparent 70%);
+      filter: blur(40px) saturate(140%);
+      transform: rotate(-8deg);
+    }
+    .hero-grid{ display:grid; gap:24px; grid-template-columns: 1fr; align-items:center }
+    @media (min-width:860px){ .hero-grid{ grid-template-columns: 1.1fr .9fr } }
+
+    .hero h1{ font-size: clamp(28px, 5.5vw, 54px); margin:0 0 8px; line-height:1.05 }
+    .hero p.lead{ font-size: clamp(16px, 2.5vw, 20px); color:var(--muted); margin:0 0 18px }
+
+    .badge{
+      display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius: 999px;
+      background: linear-gradient(90deg, rgba(124,58,237,.25), rgba(6,182,212,.25));
+      border:1px solid rgba(255,255,255,.15);
+      font-weight:700; letter-spacing:.2px; color:#DAE2FF;
+      box-shadow: 0 0 0 2px rgba(255,255,255,.06) inset, 0 6px 20px rgba(124,58,237,.16);
+    }
+    .cta{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:18px }
+    .btn{
+      --glow: drop-shadow(0 0 14px rgba(34,211,238,.55));
+      display:inline-flex; align-items:center; gap:10px; padding:12px 18px; font-weight:800;
+      border-radius: 14px; border:1px solid rgba(255,255,255,.18);
+      background: linear-gradient(180deg, rgba(34,211,238,.35), rgba(124,58,237,.3));
+      color:var(--text);
+      box-shadow: var(--shadow); filter: var(--glow);
+      transition: transform .15s ease, filter .2s ease;
+    }
+    .btn:disabled{ opacity:.5; filter:none; cursor:not-allowed }
+    .btn:hover{ transform: translateY(-1px); filter: drop-shadow(0 0 22px rgba(34,211,238,.8)) }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    /* Фото-заглушка */
+    .photo{
+      aspect-ratio: 1; width: min(320px, 70vw); border-radius: 18px; margin-inline:auto;
+      background: linear-gradient(135deg, rgba(124,58,237,.5), rgba(6,182,212,.45)) border-box;
+      padding: 3px; position: relative;
+    }
+    .photo::after{
+      content: "Фото преподавателя"; position:absolute; inset:6px; display:grid; place-items:center;
+      border-radius: 14px; background: #141936; color:#d6e1ff; font-weight:700; letter-spacing:.3px;
+    }
+
+    /* Секции */
+    section{ padding: clamp(36px, 7vw, 80px) 0 }
+    h2{ font-size: clamp(22px, 4.2vw, 36px); margin:0 0 16px }
+    .sub{ color: var(--muted); margin: 0 0 28px }
+
+    .features{ display:grid; gap:16px; grid-template-columns: 1fr; }
+    @media (min-width:720px){ .features{ grid-template-columns: repeat(3, 1fr) } }
+    .feature{ padding:18px; }
+    .feature h3{ margin:0 0 6px; font-size: 18px }
+    .chip{ display:inline-block; font-weight:700; font-size:12px; letter-spacing:.2px; padding:6px 10px; border-radius:999px; background:rgba(163,230,53,.12); color:#E0FFB2; border:1px solid rgba(163,230,53,.45) }
+
+    .pricing{ display:grid; gap:18px; grid-template-columns: 1fr; }
+    @media (min-width:900px){ .pricing{ grid-template-columns: repeat(3, 1fr) } }
+    .price{ padding:20px; position:relative; overflow:hidden }
+    .price .tag{ position:absolute; top:14px; right:14px; font-size:12px; background:rgba(236,72,153,.2); border:1px solid rgba(236,72,153,.5); padding:6px 10px; border-radius:999px }
+    .price h3{ margin:0 0 8px }
+    .price strong{ font-size:28px }
+    .price ul{ margin:12px 0 0; padding-left:18px; opacity:.95 }
+
+    .split{ display:grid; gap:18px; grid-template-columns: 1fr; align-items:start }
+    @media (min-width:900px){ .split{ grid-template-columns: 1fr 1fr } }
+
+    .faq details{ background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius: 12px; padding:12px 14px }
+    .faq summary{ cursor:pointer; font-weight:700 }
+
+    footer{ border-top:1px solid rgba(255,255,255,.1); background:#0b0d17; color:#cfd8ff; }
+    .foot{ display:grid; gap:16px; grid-template-columns: 1fr; align-items:center; padding: 22px var(--pad) }
+    @media (min-width:760px){ .foot{ grid-template-columns: 1fr auto } }
+
+    .small{ font-size:13px; color:#c7cdfb }
+    .consent{ display:flex; gap:10px; align-items:flex-start; font-size:14px }
+    .consent input{ transform: translateY(2px); }
+    .links a{ color:#bfeaff; text-decoration:underline; text-underline-offset: 3px }
+
+    /* Приятные маркеры списков */
+    ul.custom{ list-style:none; padding:0; margin:0 }
+    ul.custom li{ padding-left:28px; position:relative; margin:10px 0 }
+    ul.custom li::before{ content:""; width:18px; height:18px; border-radius:6px; position:absolute; left:0; top:2px; background:
+      conic-gradient(from 90deg, var(--secondary), var(--accent), var(--primary), var(--pink), var(--lime));
+      filter: drop-shadow(0 0 8px rgba(34,211,238,.7));
+    }
+
+    /* Доступность */
+    :focus-visible{ outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 8px }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const agree = document.getElementById('agree');
+      const book = document.getElementById('bookBtn');
+      const select = document.getElementById('slot');
+
+      const toggle = () => { book.disabled = !(agree.checked && select.value); };
+      agree.addEventListener('change', toggle);
+      select.addEventListener('change', toggle);
+      toggle();
+
+      book.addEventListener('click', (e)=>{
+        if(book.disabled) return;
+        const slotText = select.options[select.selectedIndex]?.text || '';
+        const subj = encodeURIComponent('Запись на урок по английскому');
+        const body = encodeURIComponent(`Здравствуйте! Хочу записаться на выбранное время: ${slotText}.\n\nИмя: [введите]\nКонтакты: [телеграм/почта]\nЗадачи: [подготовка к ЕГЭ / разговорный / бизнес]`);
+        /* Замените почту ниже на свою */
+        window.location.href = `mailto:teacher@example.com?subject=${subj}&body=${body}`;
+      });
+    });
+  </script>
+</head>
+<body class="grid-bg">
+  <header aria-label="Навигация">
+    <div class="wrap bar">
+      <div class="brand" aria-label="Логотип и название">
+        <span class="logo" aria-hidden="true"></span>
+        <span>ENGLISH • TUTOR</span>
+      </div>
+      <nav aria-label="Основное меню">
+        <ul>
+          <li><a href="#about">Обо мне</a></li>
+          <li><a href="#features">Подход</a></li>
+          <li><a href="#pricing">Форматы и цены</a></li>
+          <li><a href="#schedule">Расписание</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Контакты</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap" aria-label="Главный экран">
+      <div class="halo" aria-hidden="true"></div>
+      <div class="hero-grid">
+        <div>
+          <span class="badge">✨ Яркий неон • Удобно онлайн • От уровня A0 до B2</span>
+          <h1>Английский, который нравится глазам и мозгу</h1>
+          <p class="lead">Индивидуальные занятия в современном формате: интерактив, визуальные конспекты, чёткие цели и понятный прогресс каждую неделю.</p>
+          <div class="cta">
+            <label class="consent">
+              <input type="checkbox" id="agree" aria-describedby="agreelabel" />
+              <span id="agreelabel">Согласен(а) с <a href="#" rel="nofollow noopener">офертой</a>, <a href="#" rel="nofollow noopener">политикой конфиденциальности</a> и <a href="#" rel="nofollow noopener">обработкой персональных данных</a>.</span>
+            </label>
+            <button id="bookBtn" class="btn" type="button" disabled aria-disabled="true">Записаться на урок</button>
+          </div>
+          <p class="small" style="margin-top:8px">Кнопка активируется после выбора слота и установки галочки.</p>
+        </div>
+        <div>
+          <div class="photo" role="img" aria-label="Фото преподавателя — заглушка"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="wrap" aria-label="Обо мне">
+      <div class="split">
+        <article class="card" style="padding:20px">
+          <h2>Обо мне</h2>
+          <p class="sub">Привет! Меня зовут <strong>Денис</strong>. Помогаю подросткам и взрослым уверенно говорить, понимать на слух и сдавать экзамены без стресса.</p>
+          <ul class="custom">
+            <li><strong>Опыт:</strong> 5+ лет преподавания онлайн и офлайн</li>
+            <li><strong>Образование:</strong> профильное, курсы повышения квалификации</li>
+            <li><strong>Специализация:</strong> разговорный английский, ОГЭ/ЕГЭ, международные экзамены</li>
+          </ul>
+        </article>
+        <aside class="card" style="padding:20px">
+          <h3 style="margin-top:0">Инструменты</h3>
+          <p class="sub">Использую интерактивные доски, карточки, мини‑игры и наглядные схемы. Все материалы доступны после урока.</p>
+          <div class="chip">Визуальные конспекты</div>
+          <div class="chip" style="margin-left:8px">Адаптированные тексты</div>
+          <div class="chip" style="margin-left:8px">Домашка с авто‑проверкой</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="features" class="wrap" aria-label="Подход и преимущества">
+      <h2>Как строю занятия</h2>
+      <p class="sub">Программа под цель: говорение, аудирование, лексика и грамматика — в удобной пропорции. Регулярная обратная связь и отслеживание прогресса.</p>
+      <div class="features">
+        <div class="feature card">
+          <h3>1. Диагностика</h3>
+          <p>Стартуем с мини‑теста и короткого разговора, чтобы понять уровень и цели.</p>
+        </div>
+        <div class="feature card">
+          <h3>2. Индивидуальный план</h3>
+          <p>Сверяем ожидания, подбираем материалы, распределяем нагрузку.</p>
+        </div>
+        <div class="feature card">
+          <h3>3. Результаты по неделям</h3>
+          <p>К концу каждой недели — маленькая победа: новая тема, словарь, навыки.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="wrap" aria-label="Форматы и цены">
+      <h2>Форматы и цены</h2>
+      <p class="sub">Прозрачно и просто. Все форматы — онлайн.</p>
+      <div class="pricing">
+        <article class="price card">
+          <span class="tag">Популярно</span>
+          <h3>Индивидуально · 50 мин</h3>
+          <p><strong>1 600 ₽</strong> за урок</p>
+          <ul>
+            <li>личный план обучения</li>
+            <li>домашние задания</li>
+            <li>ежемесячный отчёт о прогрессе</li>
+          </ul>
+        </article>
+        <article class="price card">
+          <h3>Парой · 50 мин</h3>
+          <p><strong>1 100 ₽</strong> с человека</p>
+          <ul>
+            <li>общая цель и здоровая мотивация</li>
+            <li>живые диалоги и роли</li>
+            <li>общие материалы курса</li>
+          </ul>
+        </article>
+        <article class="price card">
+          <h3>Интенсив к экзамену</h3>
+          <p><strong>от 6 400 ₽</strong> за 4 занятия</p>
+          <ul>
+            <li>практика формата ОГЭ/ЕГЭ</li>
+            <li>тайм‑менеджмент и стратегии</li>
+            <li>пробник и разбор ошибок</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="schedule" class="wrap" aria-label="Расписание и запись">
+      <div class="split">
+        <div class="card" style="padding:20px">
+          <h2>Выберите удобное время</h2>
+          <p class="sub">Слоты можно отредактировать вручную прямо в коде. После выбора — жмите «Записаться на урок» выше.</p>
+          <label for="slot" class="small">Доступные слоты (пример):</label>
+          <select id="slot" style="width:100%; margin-top:6px; padding:12px; border-radius:10px; background:#0f1431; color:var(--text); border:1px solid rgba(255,255,255,.15)">
+            <option value="">— Выберите дату и время —</option>
+            <option>Вт · 11 ноября · 18:00–18:50 (MSK)</option>
+            <option>Ср · 12 ноября · 19:00–19:50 (MSK)</option>
+            <option>Сб · 15 ноября · 11:00–11:50 (MSK)</option>
+          </select>
+          <p class="small" style="margin-top:10px">Не нашли подходящее окно? Напишите — подберём индивидуально.</p>
+        </div>
+        <div class="card" style="padding:20px">
+          <h2>Что понадобится</h2>
+          <ul class="custom">
+            <li>Стабильный интернет и гарнитура</li>
+            <li>Google Docs/Presentations для материалов</li>
+            <li>Готовность говорить с первого урока 🙂</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="wrap faq" aria-label="Частые вопросы">
+      <h2>FAQ</h2>
+      <div class="split">
+        <div>
+          <details class="card"><summary>Как проходит первый урок?</summary><div class="sub">Знакомимся, определяем уровень, формулируем цель, пробуем формат занятий. В конце получите рекомендации и план.</div></details>
+          <div style="height:10px"></div>
+          <details class="card"><summary>Можно отменить или перенести урок?</summary><div class="sub">Да, предупредите за 24 часа — найдём другое время. При поздней отмене занятие считается проведённым.</div></details>
+          <div style="height:10px"></div>
+          <details class="card"><summary>Нужен ли учебник?</summary><div class="sub">Не обязательно. Подбираю материалы под ваши цели: статьи, видео, задания, карточки. При желании работаем по вашему учебнику.</div></details>
+        </div>
+        <div>
+          <details class="card"><summary>Готовите к экзаменам?</summary><div class="sub">Да: ОГЭ, ЕГЭ, IELTS/TOEFL (до B2). Практикуем форматы, учимся распределять время, делаем пробники.</div></details>
+          <div style="height:10px"></div>
+          <details class="card"><summary>Выдаёте домашние задания?</summary><div class="sub">Да, в удобном объёме. Часть заданий — с авто‑проверкой, часть — на говорение и письмо.</div></details>
+          <div style="height:10px"></div>
+          <details class="card"><summary>Как оплатить?</summary><div class="sub">По договорённости: перевод на карту/сервис. Квитанция и отчёт по запросу.</div></details>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="wrap" aria-label="Контакты">
+      <div class="card" style="padding:20px">
+        <h2>Контакты</h2>
+        <p class="sub">Предпочитаете мессенджеры? Напишите — отвечу в ближайшее время.</p>
+        <ul class="custom">
+          <li><strong>Телеграм:</strong> <a href="#" rel="nofollow noopener">@english_tutor</a></li>
+          <li><strong>Почта:</strong> <a href="mailto:teacher@example.com">teacher@example.com</a></li>
+          <li><strong>Город/часовой пояс:</strong> онлайн, Европа/Берлин</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div class="small">© <span id="y"></span> Репетитор английского. Все права защищены.</div>
+      <div class="links small">
+        <a href="#">Пользовательское соглашение</a> ·
+        <a href="#">Политика конфиденциальности</a> ·
+        <a href="#">Обработка персональных данных</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Структурированные данные для поисковиков -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Репетитор английского онлайн",
+    "image": "",
+    "description": "Индивидуальные уроки английского языка онлайн. Современный подход, визуальные конспекты и измеримый прогресс.",
+    "areaServed": "RU, EU",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "RUB",
+      "price": "1600"
+    },
+    "sameAs": []
+  }
+  </script>
+</body>
+</html>
